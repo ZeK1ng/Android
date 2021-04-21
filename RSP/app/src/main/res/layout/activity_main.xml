@@ -7,18 +7,21 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/topLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:layout_marginEnd="84dp"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -26,21 +29,24 @@
                 android:textSize="16sp"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="71dp" />
+
             <TextView
                 android:id="@+id/computerScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
                 android:layout_marginTop="16dp"
+                android:text="0"
                 android:textSize="24sp"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="71dp" />
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
+            android:gravity="center"
+            android:orientation="vertical">
+
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="wrap_content"
@@ -49,12 +55,13 @@
                 android:textSize="16sp"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="254dp" />
+
             <TextView
                 android:id="@+id/playerScore"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0"
                 android:layout_marginTop="16dp"
+                android:text="0"
                 android:textSize="24sp"
                 app:layout_constraintTop_toTopOf="parent"
                 tools:layout_editor_absoluteX="71dp" />
@@ -63,10 +70,28 @@
 
     <LinearLayout
         android:id="@+id/linearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
         android:orientation="vertical"
-        android:gravity="center">
+        app:layout_constraintBottom_toTopOf="@+id/bottomLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/topLayout">
+
+        <ImageView
+            android:id="@+id/computerImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:rotationX="180"
+            android:visibility="invisible"
+            tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/startText"
@@ -74,9 +99,19 @@
             android:layout_height="wrap_content"
             android:text="@string/start_string"
             android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/userImage"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:visibility="invisible"
+            tools:srcCompat="@tools:sample/avatars" />
     </LinearLayout>
 
+
     <LinearLayout
+        android:id="@+id/bottomLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
