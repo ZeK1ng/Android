@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         playGame()
     }
 
-    fun playGame() {
+    private fun playGame() {
         rockButtonListener()
         paperButtonListener()
         szrButtonListener()

@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">WeatherApp</string>
+    <string name="base_weather_api_url">https://api.openweathermap.org</string>
+    <string name="weather_api_client_key">b54aafac969b0f499f847ab6fc779640</string>
+    <string name="weather_api_units">metric</string>
+    <string name="json_key_temperature">temp</string>
+    <string name="json_key_min_temp">temp_min</string>
+    <string name="json_key_max_temp">temp_max</string>
+    <string name="json_key_humidity">humidity</string>
+    <string name="json_key_feels_like">feels_like</string>
+    <string name="json_key_pressure">pressure</string>
+    <string name="json_key_weather_main">main</string>
+    <string name="json_key_weather_description">description</string>
+    <string name="json_key_weather_icon">icon</string>
+    <string name="temp_sign">°</string>
+
+
+</resources>
