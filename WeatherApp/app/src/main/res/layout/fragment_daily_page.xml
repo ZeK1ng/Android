@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".daily_page">
+    tools:context=".fragment.daily_page">
 
     <!-- TODO: Update blank fragment layout -->
     <LinearLayout
@@ -12,12 +12,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="16dp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="16dp">
 
 
             <ImageButton
@@ -51,9 +54,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:fontFamily="sans-serif-light"
+            android:fontFamily="sans-serif-black"
             android:gravity="center"
-            android:textColor="#FBF9F9"
+            android:textColor="@color/textColor"
             android:textSize="16sp"
             android:textStyle="bold" />
 
@@ -63,6 +66,44 @@
             android:layout_height="100dp"
             android:layout_marginTop="16dp"
             tools:src="@tools:sample/avatars" />
+
+        <TextView
+            android:id="@+id/temperatureText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/textColor"
+
+            android:textSize="48sp" />
+
+        <TextView
+            android:id="@+id/descripText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:text=""
+            android:textColor="@color/textColor"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:gravity="start"
+            android:text="@string/details"
+            android:textColor="@color/textColor"
+            android:textSize="16sp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            tools:listitem="@layout/details_item" />
+
 
     </LinearLayout>
 

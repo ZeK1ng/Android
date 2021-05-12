@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="night">#240050</color>
     <color name="day">#059FE4</color>
+    <color name="textColor">#FBF9F9</color>
 </resources>

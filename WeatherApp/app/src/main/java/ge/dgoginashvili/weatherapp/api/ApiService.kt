@@ -1,4 +1,5 @@
-package ge.dgoginashvili.weatherapp
+package ge.dgoginashvili.weatherapp.api
+import ge.dgoginashvili.weatherapp.dataModel.WeatherInfoModel
 import retrofit2.Call
 import retrofit2.http.*
 
