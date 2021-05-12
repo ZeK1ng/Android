@@ -29,7 +29,7 @@ import java.util.*
 import kotlin.collections.HashMap
 
 
-class daily_page : Fragment() {
+class daily_page_fragment : Fragment() {
     var city = "Tbilisi"
     lateinit var iconImage: ImageView
     lateinit var temperTextV: TextView
@@ -83,7 +83,7 @@ class daily_page : Fragment() {
 
     }
 
-    private fun doApiCall() {
+    public fun doApiCall() {
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(resources.getString(R.string.base_weather_api_url))
             .addConverterFactory(GsonConverterFactory.create())
@@ -135,7 +135,7 @@ class daily_page : Fragment() {
         detailsData.add(Pair(getResString(R.string.Humidity), humidity))
         detailsData.add(Pair(getResString(R.string.Pressure), pressure))
         adapter.notifyDataSetChanged()
-        ditRecView.adapter = adapter
+//        ditRecView.adapter = adapter
     }
 
     private fun getIcon(response: Response<WeatherInfoModel>) {

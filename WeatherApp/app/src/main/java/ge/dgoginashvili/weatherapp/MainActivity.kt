@@ -1,33 +1,37 @@
 package ge.dgoginashvili.weatherapp
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
-import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
-import org.w3c.dom.Text
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.math.RoundingMode
-import java.text.DecimalFormat
-import java.text.SimpleDateFormat
-import java.util.*
-import kotlin.collections.HashMap
+import android.widget.ImageButton
+import android.widget.Toast
+import androidx.viewpager2.widget.ViewPager2
+import ge.dgoginashvili.weatherapp.adapter.ViewPagerAdapter
+
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var viewpager: ViewPager2
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setupViewPager()
+
+    }
+
+    private fun setupViewPager() {
+        viewpager = findViewById(R.id.viewPager)
+        viewpager.adapter = ViewPagerAdapter(this)
+        val dailyButton = findViewById<ImageButton>(R.id.buttonDaily)
+        val hourlyButton = findViewById<ImageButton>(R.id.buttonHourly)
+
+        dailyButton.setOnClickListener {
+            viewpager.setCurrentItem(viewpager.currentItem - 1)
+        }
+        hourlyButton.setOnClickListener {
+            viewpager.setCurrentItem(viewpager.currentItem + 1)
+        }
+
     }
 
 

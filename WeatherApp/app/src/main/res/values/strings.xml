@@ -19,7 +19,7 @@
     <string name="FeelsLike">Feels Like</string>
     <string name="Humidity">Humidity</string>
     <string name="Pressure">Pressure</string>
-
+    <string name="icon_url">https://openweathermap.org/img/wn/{name}@2x.png</string>
     <string name="hourly">hourly</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

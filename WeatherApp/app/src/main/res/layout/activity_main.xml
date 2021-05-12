@@ -6,16 +6,22 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <fragment
-        android:name="ge.dgoginashvili.weatherapp.fragment.daily_page"
-        android:id="@+id/dailyFragment"
+    <androidx.viewpager2.widget.ViewPager2
+        android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="48dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="-47dp">
+        android:layout_marginBottom="50dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+<!--    <fragment-->
+<!--        android:name="ge.dgoginashvili.weatherapp.fragment.daily_page_fragment"-->
+<!--        android:id="@+id/dailyFragment"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginBottom="48dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        tools:layout_editor_absoluteX="-47dp">-->
 
-    </fragment>
+<!--    </fragment>-->
 
     <LinearLayout
         android:id="@+id/tabbar"
