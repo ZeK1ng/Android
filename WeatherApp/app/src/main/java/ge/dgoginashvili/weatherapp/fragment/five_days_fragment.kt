@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ge.dgoginashvili.weatherapp.R
@@ -82,6 +83,7 @@ class five_days_fragment : Fragment() {
         forecast.enqueue(object : Callback<HourlyWeatherInfoModel> {
             override fun onFailure(call: Call<HourlyWeatherInfoModel>, t: Throwable) {
                 Log.e("Error", "Api failure")
+                Toast.makeText(context,"Could not connect to server",Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(

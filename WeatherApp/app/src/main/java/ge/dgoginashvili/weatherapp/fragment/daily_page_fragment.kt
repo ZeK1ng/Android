@@ -6,10 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -94,6 +91,7 @@ class daily_page_fragment : Fragment() {
         getWeather.enqueue(object : Callback<WeatherInfoModel> {
             override fun onFailure(call: Call<WeatherInfoModel>, t: Throwable) {
                 Log.e("Error", "Api failure")
+                Toast.makeText(context,"Could not connect to server", Toast.LENGTH_SHORT).show()
             }
 
             override fun onResponse(
