@@ -12,10 +12,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ge.dgoginashvili.weatherapp.R
 
-class hourlyDetailsAdapter(var list: ArrayList<Map<String, String>>) :
+class HourlyDetailsAdapter(var list: ArrayList<Map<String, String>>) :
+
     RecyclerView.Adapter<hourlyItemViewHolder>() {
     override fun getItemCount(): Int {
-        Log.d("SIZeEE", list.size.toString())
         return list.size
     }
 
@@ -32,7 +32,7 @@ class hourlyDetailsAdapter(var list: ArrayList<Map<String, String>>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): hourlyItemViewHolder {
-        var view = LayoutInflater.from(parent.context).inflate(R.layout.hourly_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.hourly_item, parent, false)
         return hourlyItemViewHolder(view)
     }
 }

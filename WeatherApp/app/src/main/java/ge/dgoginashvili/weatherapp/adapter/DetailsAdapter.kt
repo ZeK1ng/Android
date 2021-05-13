@@ -11,17 +11,16 @@ import ge.dgoginashvili.weatherapp.R
 
 class DetailsAdapter(var list: ArrayList<Pair<String,String>>) : RecyclerView.Adapter<DitItemViewHolder>() {
     override fun getItemCount(): Int {
-        Log.d("SIZeEE",list.size.toString())
         return list.size
     }
     override fun onBindViewHolder(holder: DitItemViewHolder, position: Int) {
         val item = list[position]
         holder.detailText.text = item.first
         holder.detailValue.text = item.second
-        Log.d("NAMEES",item.first + " " + item.second)
+
     }
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DitItemViewHolder {
-        var view = LayoutInflater.from(parent.context).inflate(R.layout.details_item, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.details_item, parent, false)
         return DitItemViewHolder(view)
     }
 }

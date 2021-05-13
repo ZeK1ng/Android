@@ -26,10 +26,10 @@ class MainActivity : AppCompatActivity() {
         val hourlyButton = findViewById<ImageButton>(R.id.buttonHourly)
 
         dailyButton.setOnClickListener {
-            viewpager.setCurrentItem(viewpager.currentItem - 1)
+            viewpager.currentItem = viewpager.currentItem - 1
         }
         hourlyButton.setOnClickListener {
-            viewpager.setCurrentItem(viewpager.currentItem + 1)
+            viewpager.currentItem = viewpager.currentItem + 1
         }
 
     }

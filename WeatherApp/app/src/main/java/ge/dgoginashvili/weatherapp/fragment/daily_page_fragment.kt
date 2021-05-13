@@ -17,13 +17,12 @@ import ge.dgoginashvili.weatherapp.R
 import ge.dgoginashvili.weatherapp.adapter.DetailsAdapter
 import ge.dgoginashvili.weatherapp.api.ApiService
 import ge.dgoginashvili.weatherapp.dataModel.WeatherInfoModel
+import ge.dgoginashvili.weatherapp.utils.Utils
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.math.RoundingMode
-import java.text.DecimalFormat
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.HashMap
@@ -43,12 +42,13 @@ class daily_page_fragment : Fragment() {
     var detailsData = arrayListOf<Pair<String, String>>()
     lateinit var ditRecView: RecyclerView
     lateinit var adapter: DetailsAdapter
+
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_daily_page, container, false)
         ditRecView = view.findViewById(R.id.rv_details)
         adapter = DetailsAdapter(detailsData)
@@ -78,12 +78,7 @@ class daily_page_fragment : Fragment() {
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-    }
-
-    public fun doApiCall() {
+    private fun doApiCall() {
         val retrofit: Retrofit = Retrofit.Builder()
             .baseUrl(resources.getString(R.string.base_weather_api_url))
             .addConverterFactory(GsonConverterFactory.create())
@@ -94,7 +89,6 @@ class daily_page_fragment : Fragment() {
         params["q"] = city
         params["appid"] = resources.getString(R.string.weather_api_client_key)
         params["units"] = resources.getString(R.string.weather_api_units)
-        Log.i("params", params.toString())
         val getWeather = apiService.getWeather(params)
 
         getWeather.enqueue(object : Callback<WeatherInfoModel> {
@@ -112,7 +106,7 @@ class daily_page_fragment : Fragment() {
 
                 if (response.isSuccessful) {
                     response.body()!!.name.let { Log.d("data", it) }
-                    handletime(dailyLayoutContainer, response)
+                    handleTime(dailyLayoutContainer, response)
                     getDetails(response)
                     getIcon(response)
 
@@ -135,25 +129,19 @@ class daily_page_fragment : Fragment() {
         detailsData.add(Pair(getResString(R.string.Humidity), humidity))
         detailsData.add(Pair(getResString(R.string.Pressure), pressure))
         adapter.notifyDataSetChanged()
-//        ditRecView.adapter = adapter
     }
 
     private fun getIcon(response: Response<WeatherInfoModel>) {
         val weathermp = response.body()!!.weather[0]
-        Log.d("Weather", weathermp.toString())
 
         val icon = weathermp["icon"]!!
 
         iconImage = view?.findViewById(R.id.dailyWeatherImage)!!
         iconUrl = "https://openweathermap.org/img/wn/{name}@2x.png"
         iconUrl = iconUrl.replace("{name}", icon, true)
-        Log.d("IconUrl", iconUrl)
         weather_description =
             weathermp[resources.getString(R.string.json_key_weather_description)]!!
 
-
-        Log.d("temp", temperature)
-        Log.d("descr", weather_description)
         Glide.with(activity!!)
             .load(iconUrl)
             .into(iconImage)
@@ -161,14 +149,12 @@ class daily_page_fragment : Fragment() {
 
     private fun getDetails(response: Response<WeatherInfoModel>) {
         val mainmp = response.body()!!.main
-        Log.d("MainBody", mainmp.toString())
-
         temperature =
-            roundAndFormat(mainmp[getResString(R.string.json_key_temperature)]!!) + getResString(
+            Utils.roundAndFormat(mainmp[getResString(R.string.json_key_temperature)]!!) + getResString(
                 R.string.temp_sign
             )
         feelsLike =
-            roundAndFormat(mainmp[getResString(R.string.json_key_feels_like)]!!) + getResString(
+            Utils.roundAndFormat(mainmp[getResString(R.string.json_key_feels_like)]!!) + getResString(
                 R.string.temp_sign
             )
         humidity = mainmp[getResString(R.string.json_key_humidity)] + "%"
@@ -176,7 +162,7 @@ class daily_page_fragment : Fragment() {
 
     }
 
-    private fun handletime(
+    private fun handleTime(
         dailyLayoutContainer: LinearLayout,
         response: Response<WeatherInfoModel>
     ) {
@@ -185,11 +171,8 @@ class daily_page_fragment : Fragment() {
         calendarDate.timeInMillis = dt
         val timeType = SimpleDateFormat("a").format(calendarDate.time)
         val timeValue = SimpleDateFormat("h").format(calendarDate.time)
-        Log.d("DT", dt.toString())
-        Log.d("timeType", timeType)
-        Log.d("timeValue", timeValue)
         if ((timeType == "AM" && Integer.parseInt(timeValue) <= 6)
-            || (timeType == "PM" && Integer.parseInt(timeValue) >= 6)
+            || (timeType == "PM" && Integer.parseInt(timeValue) >= 18)
         ) {
             dailyLayoutContainer.setBackgroundResource(R.color.night)
         }
@@ -200,18 +183,5 @@ class daily_page_fragment : Fragment() {
         return resources.getString(key)
     }
 
-    private fun roundAndFormat(i: String): String {
-
-        val index = i.indexOf('.')
-        val ch = i[index + 1]
-        val k = Integer.parseInt(ch.toString())
-        val df = DecimalFormat("#")
-        if (k >= 5) {
-            df.roundingMode = RoundingMode.CEILING
-        } else {
-            df.roundingMode = RoundingMode.FLOOR
-        }
-        return df.format(i.toDouble()).toInt().toString()
-    }
 
 }
