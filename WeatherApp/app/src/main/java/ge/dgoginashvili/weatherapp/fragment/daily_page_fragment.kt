@@ -169,8 +169,10 @@ class daily_page_fragment : Fragment() {
         calendarDate.timeInMillis = dt
         val timeType = SimpleDateFormat("a").format(calendarDate.time)
         val timeValue = SimpleDateFormat("h").format(calendarDate.time)
-        if ((timeType == "AM" && Integer.parseInt(timeValue) <= 6)
-            || (timeType == "PM" && Integer.parseInt(timeValue) >= 18)
+        Log.d("time",timeType+timeValue)
+
+        if ((timeType == "AM" && Integer.parseInt(timeValue) <= 6) || (timeType == "AM" && Integer.parseInt(timeValue) == 12)
+            || (timeType == "PM" && Integer.parseInt(timeValue) >= 18)    || (timeType == "PM" && Integer.parseInt(timeValue) >= 6)
         ) {
             dailyLayoutContainer.setBackgroundResource(R.color.night)
         }

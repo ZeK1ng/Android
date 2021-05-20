@@ -10,6 +10,8 @@ import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ge.dgoginashvili.weatherapp.R
@@ -43,6 +45,9 @@ class five_days_fragment : Fragment() {
         hourlyDitViewAdapter = HourlyDetailsAdapter(hourlyDetailsData)
         hourlyDitView.adapter = hourlyDitViewAdapter
         hourlyDitView.layoutManager = LinearLayoutManager(context)
+        val divider = DividerItemDecoration(context,DividerItemDecoration.VERTICAL)
+        divider.setDrawable(ContextCompat.getDrawable(context!!, R.drawable.recv_divider)!!)
+        hourlyDitView.addItemDecoration(divider)
         return view
     }
 
@@ -146,8 +151,8 @@ class five_days_fragment : Fragment() {
             timeDay = "0$timeDay"
         }
         if (ind == 0) {
-            if ((timeType == "AM" && Integer.parseInt(timeValue) <= 6)
-                || (timeType == "PM" && Integer.parseInt(timeValue) >= 6)
+            if ((timeType == "AM" && Integer.parseInt(timeValue) <= 6) || (timeType == "AM" && Integer.parseInt(timeValue) == 12)
+                || (timeType == "PM" && Integer.parseInt(timeValue) >= 18)    || (timeType == "PM" && Integer.parseInt(timeValue) >= 6)
             ) {
                 dailyLayoutContainer.setBackgroundResource(R.color.night)
             }
