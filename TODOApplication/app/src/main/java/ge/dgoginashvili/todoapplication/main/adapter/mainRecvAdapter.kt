@@ -4,9 +4,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.RecycledViewPool
+import androidx.recyclerview.widget.RecyclerView.VISIBLE
 import ge.dgoginashvili.todoapplication.R
 import ge.dgoginashvili.todoapplication.data.entity.todoEntity
 import ge.dgoginashvili.todoapplication.main.activity.MainActivity
@@ -32,8 +34,25 @@ class mainRecvAdapter(
         holder.recView.layoutManager = lmanager
         holder.recView.adapter = subItemAdapter
         holder.recView.setRecycledViewPool(viewPool)
+
+        holder.container.setOnClickListener{
+            mnActivity.itemClicked(currEntity)
+        }
         holder.recView.setOnClickListener{
             mnActivity.itemClicked(currEntity)
+        }
+        if(currEntity.tasks.size>3){
+            holder.dots.visibility = View.VISIBLE
+            holder.dots.text="..."
+        }else{
+            holder.dots.visibility = View.INVISIBLE
+        }
+        if(currEntity.done.size>0){
+            holder.doneItemsCount.visibility=View.VISIBLE
+            val str = "+ " + currEntity.done.size.toString()+" checked items"
+            holder.doneItemsCount.text = str
+        }else{
+            holder.doneItemsCount.visibility=View.INVISIBLE
         }
     }
 
@@ -47,4 +66,7 @@ class mainRecvAdapter(
 class TDitemHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     var recView = itemView.findViewById<RecyclerView>(R.id.itemparentRecVie)
     var title = itemView.findViewById<TextView>(R.id.titlev)
+    var dots = itemView.findViewById<TextView>(R.id.dots)
+    var doneItemsCount = itemView.findViewById<TextView>(R.id.doneitemsNum)
+    var container = itemView.findViewById<ConstraintLayout>(R.id.parentContainer)
 }

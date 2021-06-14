@@ -22,7 +22,17 @@ class Interactor(val presenter: Presenter) {
     fun addItem(item:todoEntity){
         AddItem(item).execute()
     }
+    fun updateEntity(td:todoEntity){
+        UpdateEntity(td).execute()
+    }
 
+    class UpdateEntity(private val item: todoEntity):AsyncTask<Void, Void,  Void>(){
+        override fun doInBackground(vararg params: Void?):Void?{
+            val dao = TDDatabase.getInstance().todoItemDao()
+            dao.updateTodoItem(item)
+            return null
+        }
+    }
     class AddItem(private val item:todoEntity):AsyncTask<Void, Void,  Void>() {
         override fun doInBackground(vararg params: Void?):Void?{
             val dao = TDDatabase.getInstance().todoItemDao()

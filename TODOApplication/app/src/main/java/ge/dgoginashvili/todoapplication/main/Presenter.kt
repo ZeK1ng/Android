@@ -20,6 +20,9 @@ class Presenter(var mainView: MainViewInterface?,var addView:AddViewInterface?):
     fun saveEntity(td:todoEntity){
         interactor.addItem(td)
     }
+    fun updateEntity(td:todoEntity){
+        interactor.updateEntity(td)
+    }
     override fun dataFetched(todoEntities: List<todoEntity>) {
         mainView?.showData(todoEntities)
     }

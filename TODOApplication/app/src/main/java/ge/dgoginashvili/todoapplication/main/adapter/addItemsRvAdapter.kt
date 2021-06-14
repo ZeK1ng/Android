@@ -65,7 +65,6 @@ class addItemRvAdapter(
                 }
             }
             notifyDataSetChanged()
-            addActivity.notifyChangedLists(todoitems, doneItems)
         }
 
     }

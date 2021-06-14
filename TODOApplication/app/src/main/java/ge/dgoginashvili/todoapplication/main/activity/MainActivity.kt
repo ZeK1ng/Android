@@ -4,10 +4,13 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.gson.Gson
 import ge.dgoginashvili.todoapplication.R
 import ge.dgoginashvili.todoapplication.data.entity.todoEntity
 import ge.dgoginashvili.todoapplication.main.Interfaces.MainViewInterface
@@ -42,6 +45,7 @@ class MainActivity : AppCompatActivity(),
         presenter = Presenter(this, null)
 //        presenter.purgeDB()
         presenter.getDBData()
+        findViewById<FloatingActionButton>(R.id.imageButton2).scaleType = ImageView.ScaleType.CENTER
     }
 
     override fun onDestroy() {
@@ -52,13 +56,14 @@ class MainActivity : AppCompatActivity(),
 
     override fun showData(tde: List<todoEntity>) {
         Log.d("WAZAA","WAAAAAAAAAAAA")
-        mnOtherAdapter = mainRecvAdapter(tde,this)
-        var pinnedList : List<todoEntity>
-        var nonPinnedList: List<todoEntity>
-        if(presenter.hasPinned(tde)){
+        val sorted = tde.sortedWith(Comparator{ent1,ent2 -> Utils.compareByDate(ent1,ent2)})
+        mnOtherAdapter = mainRecvAdapter(sorted,this)
+        val pinnedList : List<todoEntity>
+        val nonPinnedList: List<todoEntity>
+        if(presenter.hasPinned(sorted)){
             pinnedText.visibility = View.VISIBLE
-            pinnedList= presenter.getPinnedItems(tde)!!
-            nonPinnedList = presenter.getNonPinned(tde)!!
+            pinnedList= presenter.getPinnedItems(sorted)!!
+            nonPinnedList = presenter.getNonPinned(sorted)!!
             if(nonPinnedList.isNotEmpty()){
                 otherText.visibility = View.VISIBLE
             }
@@ -71,9 +76,8 @@ class MainActivity : AppCompatActivity(),
     }
     fun itemClicked(td:todoEntity){
         val intent = Intent(this, AddPageActivity::class.java)
-        val ls = arrayListOf<todoEntity>()
-        ls.add(td)
-        intent.putExtra("tdEntity",ls)
+        val ls = Gson().toJson(td)
+        intent.putExtra(Utils.getEntityExtraName(),ls)
         startActivity(intent)
         finish()
     }

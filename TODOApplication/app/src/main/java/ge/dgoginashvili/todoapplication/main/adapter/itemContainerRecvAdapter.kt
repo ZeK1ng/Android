@@ -18,7 +18,7 @@ class itemContRecvAdapter(
     RecyclerView.Adapter<itemContHolder>() {
 
     override fun getItemCount(): Int {
-        return todoitems.size + doneItems.size
+        return todoitems.size
     }
 
     override fun onBindViewHolder(holder: itemContHolder, position: Int) {
@@ -26,9 +26,6 @@ class itemContRecvAdapter(
         if (position <= todoitems.size - 1) {
             holder.checkBox.text = todoitems[position]
             holder.checkBox.isChecked = false
-        } else {
-            holder.checkBox.text = doneItems[position - todoitems.size]
-            holder.checkBox.isChecked = true
         }
         holder.checkBox.isClickable=false
     }
@@ -37,6 +34,7 @@ class itemContRecvAdapter(
         val view = LayoutInflater.from(parent.context).inflate(R.layout.itemmodel, parent, false)
         return itemContHolder(view)
     }
+
 }
 
 
