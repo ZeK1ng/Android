@@ -25,7 +25,16 @@ class Interactor(val presenter: Presenter) {
     fun updateEntity(td:todoEntity){
         UpdateEntity(td).execute()
     }
-
+    fun deleteEntity(td:todoEntity){
+        DeleteEntity(td).execute()
+    }
+    class DeleteEntity(private val item: todoEntity):AsyncTask<Void, Void,  Void>(){
+        override fun doInBackground(vararg params: Void?):Void?{
+            val dao = TDDatabase.getInstance().todoItemDao()
+            dao.deleteItem(item)
+            return null
+        }
+    }
     class UpdateEntity(private val item: todoEntity):AsyncTask<Void, Void,  Void>(){
         override fun doInBackground(vararg params: Void?):Void?{
             val dao = TDDatabase.getInstance().todoItemDao()

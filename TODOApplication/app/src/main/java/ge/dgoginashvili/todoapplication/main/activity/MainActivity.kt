@@ -2,8 +2,11 @@ package ge.dgoginashvili.todoapplication.main.activity
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +31,9 @@ class MainActivity : AppCompatActivity(),
     lateinit var otherRecView: RecyclerView
     lateinit var mnOtherAdapter: mainRecvAdapter
     lateinit var pinnedAdapter: mainRecvAdapter
+    lateinit var searcher:EditText
+    lateinit var tdeData:List<todoEntity>
+    private var first:Boolean=true
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +46,7 @@ class MainActivity : AppCompatActivity(),
         otherText = findViewById(R.id.otherText)
         pinnedRecView = findViewById(R.id.pinnedRecView)
         otherRecView = findViewById(R.id.otherRecView)
+        searcher = findViewById(R.id.searcher)
         pinnedText.visibility = View.INVISIBLE
         otherText.visibility = View.INVISIBLE
         presenter = Presenter(this, null)
@@ -48,6 +55,7 @@ class MainActivity : AppCompatActivity(),
         findViewById<FloatingActionButton>(R.id.imageButton2).scaleType = ImageView.ScaleType.CENTER
     }
 
+
     override fun onDestroy() {
         presenter.detachView()
         super.onDestroy()
@@ -55,19 +63,31 @@ class MainActivity : AppCompatActivity(),
 
 
     override fun showData(tde: List<todoEntity>) {
+        tdeData = tde
         Log.d("WAZAA","WAAAAAAAAAAAA")
         val sorted = tde.sortedWith(Comparator{ent1,ent2 -> Utils.compareByDate(ent1,ent2)})
-        mnOtherAdapter = mainRecvAdapter(sorted,this)
         val pinnedList : List<todoEntity>
         val nonPinnedList: List<todoEntity>
         if(presenter.hasPinned(sorted)){
             pinnedText.visibility = View.VISIBLE
             pinnedList= presenter.getPinnedItems(sorted)!!
             nonPinnedList = presenter.getNonPinned(sorted)!!
+            pinnedAdapter = mainRecvAdapter(pinnedList,this)
+            pinnedRecView.adapter = pinnedAdapter
+            pinnedRecView.layoutManager = GridLayoutManager(this, 2)
+            pinnedAdapter.notifyDataSetChanged()
+
             if(nonPinnedList.isNotEmpty()){
+                mnOtherAdapter = mainRecvAdapter(nonPinnedList,this)
                 otherText.visibility = View.VISIBLE
+                otherRecView.adapter = mnOtherAdapter
+                otherRecView.layoutManager = GridLayoutManager(this, 2)
+                mnOtherAdapter.notifyDataSetChanged()
+                otherRecView.scroll
             }
+
         }else{
+            mnOtherAdapter = mainRecvAdapter(sorted,this)
             otherRecView.adapter = mnOtherAdapter
             otherRecView.layoutManager = GridLayoutManager(this, 2)
             mnOtherAdapter.notifyDataSetChanged()
@@ -91,10 +111,6 @@ class MainActivity : AppCompatActivity(),
 
     //TODO
     /****
-     * 1) add new activity to add tasks
-     * 2) handle task creation
-     * 3) print new taks on firt page
-     * 4) add graphics for first page
      * 5)handle pinned stuff
      * 6) handle search
      * ----------------

@@ -29,7 +29,9 @@ class Presenter(var mainView: MainViewInterface?,var addView:AddViewInterface?):
     fun purgeDB(){
         interactor.purgeDB()
     }
-
+    fun deleteEntity(td:todoEntity){
+        interactor.deleteEntity(td)
+    }
     fun detachView() {
         mainView = null
         addView = null
@@ -65,6 +67,14 @@ class Presenter(var mainView: MainViewInterface?,var addView:AddViewInterface?):
             }
         }
         return nonPinned
+    }
+    fun findByTitle(todos:List<todoEntity>,title:CharSequence?): todoEntity? {
+        for (td in todos){
+            if (td.title == title){
+                return td
+            }
+        }
+        return null
     }
     
 }

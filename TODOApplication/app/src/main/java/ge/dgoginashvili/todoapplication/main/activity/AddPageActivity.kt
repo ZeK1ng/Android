@@ -50,6 +50,7 @@ class AddPageActivity : AppCompatActivity(),AddViewInterface {
             }
             if(tde.pinned){
                 isPinActive = true
+                findViewById<ImageButton>(R.id.pinButton).setImageResource(R.drawable.ic_pinned_small)
             }
             if (tde.tasks.size !=0 || tde.done.size != 0){
                 notifyChangedLists(tde.tasks,tde.done)
@@ -110,6 +111,9 @@ class AddPageActivity : AppCompatActivity(),AddViewInterface {
                 tde = todoEntity(titleView.text.toString(),todoItems,doneItems,isPinActive, Utils.getTime())
                 presenter.saveEntity(tde)
             }
+        }
+        if(haveTde && todoItems.size == 0 && doneItems.size == 0){
+            presenter.deleteEntity(tde)
         }
 
     }

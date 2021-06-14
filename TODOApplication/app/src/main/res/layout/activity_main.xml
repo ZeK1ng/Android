@@ -7,7 +7,7 @@
     tools:context=".main.activity.MainActivity">
 
     <EditText
-        android:id="@+id/textView"
+        android:id="@+id/searcher"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="8dp"
@@ -15,7 +15,8 @@
         android:background="@drawable/border"
         android:gravity="center_vertical"
         android:hint="@string/search_your_notes"
-        android:paddingLeft="8dp"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -39,8 +40,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="@string/pinned"
-        app:layout_constraintStart_toStartOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintStart_toStartOf="@+id/searcher"
+        app:layout_constraintTop_toBottomOf="@+id/searcher" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/pinnedRecView"
