@@ -1,29 +1,37 @@
 package ge.dgoginashvili.todoapplication.main
 
 import android.util.Log
-import ge.dgoginashvili.todoapplication.data.dao.todoItemDao
 import ge.dgoginashvili.todoapplication.data.entity.todoEntity
+import ge.dgoginashvili.todoapplication.main.Interfaces.AddViewInterface
+import ge.dgoginashvili.todoapplication.main.Interfaces.MainViewInterface
+import ge.dgoginashvili.todoapplication.main.Interfaces.PresenterInterface
 
-class Presenter(var view:MainViewInterface?): PresenterInterface{
+class Presenter(var mainView: MainViewInterface?,var addView:AddViewInterface?):
+    PresenterInterface {
 
     private val interactor = Interactor(this)
 
 
-    fun testDB() {
-        interactor.purgeDB()
-        interactor.testDB()
+    fun getDBData() {
+//        interactor.testDB()
         var ls =  interactor.getAllItems()
         Log.d("LIST",ls.toString())
     }
-
+    fun saveEntity(td:todoEntity){
+        interactor.addItem(td)
+    }
     override fun dataFetched(todoEntities: List<todoEntity>) {
-        view?.showText(todoEntities.toString())
+        mainView?.showData(todoEntities)
+    }
+    fun purgeDB(){
+        interactor.purgeDB()
     }
 
     fun detachView() {
-        view = null
+        mainView = null
+        addView = null
     }
-    private fun hasPinned(todos:List<todoEntity>): Boolean{
+    fun hasPinned(todos:List<todoEntity>): Boolean{
         todos.forEach{
             if(it.pinned){
                 return true
@@ -31,7 +39,7 @@ class Presenter(var view:MainViewInterface?): PresenterInterface{
         }
         return false
     }
-    private fun getPinnedItems(todos:List<todoEntity>): List<todoEntity>? {
+     fun getPinnedItems(todos:List<todoEntity>): List<todoEntity>? {
         if(!hasPinned(todos)){
             return null
         }
@@ -42,6 +50,18 @@ class Presenter(var view:MainViewInterface?): PresenterInterface{
             }
         }
         return pinnedList
+    }
+    fun getNonPinned(todos:List<todoEntity>): List<todoEntity>? {
+        if(!hasPinned(todos)){
+            return null
+        }
+        val nonPinned = ArrayList<todoEntity>()
+        todos.forEach{
+            if(!it.pinned){
+                nonPinned.add(it)
+            }
+        }
+        return nonPinned
     }
     
 }

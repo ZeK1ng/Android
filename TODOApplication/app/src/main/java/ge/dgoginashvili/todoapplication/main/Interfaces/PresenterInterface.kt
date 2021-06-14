@@ -1,4 +1,4 @@
-package ge.dgoginashvili.todoapplication.main
+package ge.dgoginashvili.todoapplication.main.Interfaces
 
 import ge.dgoginashvili.todoapplication.data.entity.todoEntity
 
